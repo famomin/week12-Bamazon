@@ -27,3 +27,35 @@ connection.query("Select * FROM products", function (err, res) {
 });
 
 connection.end();
+
+//asking people what item they want to buy
+inquirer.prompt([
+
+	//asking for what item they want to buy
+	{
+		type: "input",
+		name: "item",
+		message: "Please enter Product ID for the item you want to purchase."
+	},
+
+	{
+		type: "input",
+		name: "quantity",
+		message: "Please enter quantity you want you purchase."
+
+	}
+]).then(function (user){
+
+	//check if item number exists
+	for (var i = 1; i <= res.length; i++){
+		if(user.item ===res[i].item_id) {
+			
+		}	
+	}
+	
+});
+
+
+
+
+
