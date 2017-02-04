@@ -57,12 +57,19 @@ function shop (){
 					//if items id matches, then check if enough quantity is available or not.
 					if(res[i].stock_quantity >= parseInt(user.quantity)) {
 						console.log("You bought " + parseInt(user.quantity) + " " + res[i].product_name);
-						console.log("Your total for this purchase is $" + parseInt(user.quantity)*res[i].price_to_consumer)
+						console.log("Your total for this purchase is $" + parseInt(user.quantity)*res[i].price_to_consumer);
+						
+						//updating quantity on database
+						connection.query ("UPDATE products SET ? WHERE ?", 
+							[ { stock_quantity : res[i].stock_quantity-user.quantity}, { item_id: res[i].item_id } ]);
+
+						connection.end();
 					}
 
 					//if not enough quanitty then say no enough quantity.
 					else {
 						console.log("Not Enough left in stock.");
+						connection.end();
 					}
 
 				}
