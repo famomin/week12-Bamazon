@@ -15,11 +15,11 @@ var connection = mysql.createConnection ({
 
 connection.connect (function (err){
 	if (err) throw err;
-	shop()
+	startBamazon();
 });
 
 
-function shop (){ 
+function startBamazon (){ 
 
 	connection.query("Select * FROM products", function (err, res) {
 		if (err) throw err;
@@ -56,6 +56,7 @@ function shop (){
 
 					//if items id matches, then check if enough quantity is available or not.
 					if(res[i].stock_quantity >= parseInt(user.quantity)) {
+
 						console.log("You bought " + parseInt(user.quantity) + " " + res[i].product_name);
 						console.log("Your total for this purchase is $" + parseInt(user.quantity)*res[i].price_to_consumer);
 						
@@ -82,12 +83,4 @@ function shop (){
 			
 		});
 	});
-
-
 }
-
-
-
-
-
-
