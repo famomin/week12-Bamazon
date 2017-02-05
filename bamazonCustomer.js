@@ -1,33 +1,50 @@
+//adding dependencies	
 var mysql = require("mysql");
 var inquirer = require("inquirer");
+var Table = require('cli-table');
 
+//creating connection with mySQL database
 var connection = mysql.createConnection ({
 	host: "127.0.0.1",
 	port: 3306,
 
-	//your username
+	// username, password and name of database
 	user: "root",
-
-	//your password
 	password: "hopmrm2atf",
 	database: "bamazonDB"
 });
 
+//connecting to the database, and starting bamazon app
 connection.connect (function (err){
 	if (err) throw err;
 	startBamazon();
 });
 
 
+//startBamazon function
 function startBamazon (){ 
 
+	//seleting products from the table, and showing thing to the user
 	connection.query("Select * FROM products", function (err, res) {
 		if (err) throw err;
 
+		// instantiate
+		var table = new Table({
+		    head: ['Product ID', 'Product Name', 'Department', 'Price per item', 'Quantity Left' ], 
+		    colWidths: [25, 50, 35, 25, 25]
+		});
+
 		for (var i = 0; i < res.length; i++) {
-			console.log("Product ID: " + res[i].item_id + " | Product Name: " + res[i].product_name + " | Department: " + res[i].department_name +  " | Price per unit: " + res[i].price_to_consumer + " | Quantity Available: " + res[i].stock_quantity);
+			table.push ([
+				res[i].item_id, 
+				res[i].product_name,
+				res[i].department_name,
+				res[i].price_to_consumer,
+				res[i].stock_quantity
+			]
+			);
 		}
-	
+		console.log(table.toString());
 
 		//asking people what item they want to buy
 		inquirer.prompt([
@@ -39,6 +56,7 @@ function startBamazon (){
 				message: "Please enter Product ID for the item you want to purchase."
 			},
 
+			//asking for quantity they want to buy
 			{
 				type: "input",
 				name: "quantity",
@@ -80,8 +98,7 @@ function startBamazon (){
 					console.log("Product Id Invalid");
 					process.exit();
 				}	
-			}
-			
-		});
-	});
-}
+			} // closing for loope		
+		}); //closing .then(function) callback
+	}); //closing query from database.
+} //closing startBamazon 
