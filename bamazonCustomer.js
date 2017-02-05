@@ -97,7 +97,8 @@ function startBamazon (){
 				else{
 					console.log("Product Id Invalid");
 					process.exit();
-				}	
+				}
+					
 			} // closing for loope		
 		}); //closing .then(function) callback
 	}); //closing query from database.
