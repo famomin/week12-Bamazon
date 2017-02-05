@@ -69,6 +69,12 @@ function startBamazon (){
 			//starting with for loop to loop thru all items ids
 			for (var i = 1; i <= res.length; i++) {
 
+				// // //if user inpute item  id does not match then error.
+				// if (parseInt(user.item) > math.max(res)) {
+				// 	console.log("Product Id Invalid");
+				// 	process.exit();
+				// }
+
 				//checking if user input item id matches database or not
 				if(parseInt(user.item) ===res[i].item_id) {
 
@@ -85,7 +91,7 @@ function startBamazon (){
 						process.exit();
 					}
 
-					//if not enough quanitty then say no enough quantity.
+					//if not enough quanitty then say not enough quantity.
 					else {
 						console.log("Not Enough left in stock.");
 						process.exit();
@@ -93,12 +99,6 @@ function startBamazon (){
 
 				}
 
-				// //if user inpute item  id does not match then error.
-				else{
-					console.log("Product Id Invalid");
-					process.exit();
-				}
-					
 			} // closing for loope		
 		}); //closing .then(function) callback
 	}); //closing query from database.
