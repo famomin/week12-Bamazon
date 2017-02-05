@@ -64,21 +64,22 @@ function startBamazon (){
 						connection.query ("UPDATE products SET ? WHERE ?", 
 							[ { stock_quantity : res[i].stock_quantity-user.quantity}, { item_id: res[i].item_id } ]);
 
-						connection.end();
+						process.exit();
 					}
 
 					//if not enough quanitty then say no enough quantity.
 					else {
 						console.log("Not Enough left in stock.");
-						connection.end();
+						process.exit();
 					}
 
 				}
 
 				// //if user inpute item  id does not match then error.
-				// else{
-				// 	console.log("Product Id Invalid")
-				// }	
+				else{
+					console.log("Product Id Invalid");
+					process.exit();
+				}	
 			}
 			
 		});
