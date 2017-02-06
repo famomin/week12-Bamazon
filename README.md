@@ -1,4 +1,5 @@
 # week12-Bamazon
+This app shows list of products available on Bamazon, then it will ask buyer what product they would like to purchase and how many. Then the app will check if the product is available, and if enough quantity is available to complete the purchase.
 
 ## Screenshots
 ![alt text](Assets/ss1.png "User1")
